@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./build",
+    "allowJs": false,
+    // Translate newer Javascript constructs down to an older version.
+    // Trying to follow version for Google's V8 Javascript Engine: https://github.com/v8/v8
+    "target": "ES2020",
+    // https://www.typescriptlang.org/tsconfig#module
+    "module": "commonjs",
+    "typeRoots": ["./node_modules/@types"]
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]
+}
