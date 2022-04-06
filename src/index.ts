@@ -1,3 +1,3 @@
-import Application from "./application";
+import AppCompositionRoot from "./dependencyinjection/appCompositionRoot";
 
-new Application().start();
+new AppCompositionRoot().app.start();
