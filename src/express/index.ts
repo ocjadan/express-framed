@@ -8,16 +8,19 @@ export default class Express {
   #environment: Environment;
   #pathProvider: PathProvider;
   #questionsRouter: ExpressRouter;
+  #graphRouter: ExpressRouter;
 
   constructor(
     environment: Environment,
     pathProvider: PathProvider,
-    questionsRouter: ExpressRouter
+    questionsRouter: ExpressRouter,
+    graphRouter: ExpressRouter
   ) {
     this.#app = express();
     this.#environment = environment;
     this.#pathProvider = pathProvider;
     this.#questionsRouter = questionsRouter;
+    this.#graphRouter = graphRouter;
   }
 
   start() {
@@ -28,13 +31,15 @@ export default class Express {
   private initializeRoutes() {
     const app = this.#app;
 
-    app.get(this.#questionsRouter.path, this.#questionsRouter.init());
+    app.use(this.#questionsRouter.path, this.#questionsRouter.router);
+    app.use(this.#graphRouter.path, this.#graphRouter.router);
 
     app.get("/", (req, res) => {
       res.json({
         content: "Hello, you've reached the Express-Framed API.",
         links: {
           questions: this.#pathProvider.questions,
+          graphql: this.#pathProvider.graph,
         },
       });
     });
